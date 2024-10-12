@@ -24,20 +24,50 @@ private:
 
     // Static arrays of names and colors for Goat initialization
     static const string names[NAME_COUNT];
-    static const string colors_list[COLOR_COUNT];
+    static const string colors[COLOR_COUNT];
+
+public:
+    Goat() {
+        age = rand() % (MAX_AGE - MIN_AGE + 1) + MIN_AGE;
+        name = names[rand() % NAME_COUNT];
+        color = colors_list[rand() % COLOR_COUNT];
+    }
+    
+    // Parameterized constructor
+    Goat(int a, const string& n, const string& c) : age(a), name(n), color(c) {}
+
+    //Getters
+    int get_age() const { return age; }
+    string get_name() const { return name; }
+    string get_color() const { return color; }
+    string get_description() const {
+        return name + " (" + color + ", " + to_string(age) + ")";
+    }
+    //bool overload
+    bool operator==(const Goat& other) const {
+        return (age == other.age) && (name == other.name) && (color == other.color);
+    }
+   
+};
+
+const string Goat::names[NAME_COUNT] = {
+    "Senior", "Godlike", "Old", "Mature", "Teen", "Youngster", "Elder",
+    "Veteran", "Baby", "Warrior", "Legend", "Epic", "Hero", "Champion", "Rogue"
+};
+const string Goat::colors[NAME_COUNT] = {
+  "Yellow", "Red", "Gold", "Mauve", "White", "Blue", "Green",
+    "Purple", "Black", "Silver", "Orange", "Brown", "Pink", "Cyan", "Indigo"
 };
 
 class DoublyLinkedList {
 private:
     struct Node {
-        int data;
+        Goat data;
         Node* prev;
         Node* next;
-        Node(int val, Node* p = nullptr, Node* n = nullptr) {
-            data = val;
-            prev = p;
-            next = n;
-        }
+        Node(const Goat& goatData, Node* previousN = nullptr, Node* nextN = nullptr) 
+            : data(goatData), prev(previousN), next(nextN){}
+        
     };
 
     Node* head;
