@@ -77,25 +77,29 @@ public:
     // constructor
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
 
-    void push_back(int value) {
-        Node* newNode = new Node(value);
+
+    // push_back() inserts a Goat object at the end of the list
+    void push_back(const Goat& goat) {
+        // Create a new node with the Goat object, current tail as previous, and no next node
+        Node* newNode = new Node(goat, nullptr, head);
         if (!tail)  // if there's no tail, the list is empty
-            head = tail = newNode;
+            head = tail = newNode; // Head and tail both point to the new node
         else {
-            tail->next = newNode;
-            newNode->prev = tail;
-            tail = newNode;
+            tail->next = newNode; // head and tail both point to the new node
+            newNode->prev = tail; // current tail's next points to new node
+            tail = newNode; //update 
         }
     }
-
-    void push_front(int value) {
-        Node* newNode = new Node(value);
+    // push_front() inserts a Goat object at the front of the list
+    void push_front(const Goat& goat) {
+        // Create a new node with the Goat object, no previous node, and current head as next
+        Node* newNode = new Node(goat, nullptr, head);
         if (!head)  // if there's no head, the list is empty
-            head = tail = newNode;
+            head = tail = newNode; // head and tail both point to the new node
         else {
-            newNode->next = head;
-            head->prev = newNode;
-            head = newNode;
+         
+            head->prev = newNode;  // current head's previous points to new node
+            head = newNode; //update
         }
     }
 
