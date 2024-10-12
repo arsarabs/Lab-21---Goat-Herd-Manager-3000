@@ -118,28 +118,26 @@ public:
         }
 
         Node* temp = head; // starting from head
-        if (!head) {
-            head = tail = newNode;
-            return;
-        }
 
-        Node* temp = head;
-        for (int i = 0; i < position && temp; ++i)
+        //transverse 
+        for (int i = 0; i < position && temp != nullptr; ++i) {
             temp = temp->next;
-
-        if (!temp) {
-            cout << "Position exceeds list size. Node not inserted.\n";
-            delete newNode;
-            return;
         }
 
-        newNode->next = temp->next;
-        newNode->prev = temp;
-        if (temp->next)
-            temp->next->prev = newNode;
-        else
-            tail = newNode; // Inserting at the end
-        temp->next = newNode;
+        if (temp == nullptr) { // If position exceeds list size
+            cout << "Position exceeds list size. Node not inserted." << endl;
+            return;
+        }
+        // Create a new node with the Goat object, temp as previous, and temp->next as next
+        Node* newNode = new Node(goat, temp, temp->next);
+        if (temp->next) { // If not inserting at the end
+            temp->next->prev = newNode; // Update the next node's previous pointer
+        }
+        else {
+            tail = newNode; // If inserting at the end, update tail
+        }
+        temp->next = newNode; // Update temp's next to the new node
+     
     }
 
     void delete_node(const string& name) {
@@ -205,11 +203,13 @@ public:
         cout << endl;
     }
 
+    // Destructor deletes all nodes and frees the memory
     ~DoublyLinkedList() {
-        while (head) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
+        Node* current = head; // Start from the head
+        while (current) { // Traverse the list
+            Node* temp = current; // Temporary pointer to current node
+            current = current->next; // Move to the next node
+            delete temp; // Delete the current node
         }
     }
 };
