@@ -176,7 +176,7 @@ public:
     }
      
     void print() {
-        Node* current = head;
+        Node* current = head; 
         if (!current) return;
         while (current) {
             cout << current->data << " ";
