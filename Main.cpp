@@ -103,13 +103,21 @@ public:
         }
     }
 
-    void insert_after(int value, int position) {
+
+
+    //PUSH FRONT/PUSH BACK COMPLETE, WORK BELOW
+
+
+
+
+
+    void insert_after(const Goat& goat, int position) {
         if (position < 0) {
             cout << "Position must be >= 0." << endl;
             return;
         }
 
-        Node* newNode = new Node(value);
+        Node* temp = head; // starting from head
         if (!head) {
             head = tail = newNode;
             return;
@@ -134,22 +142,29 @@ public:
         temp->next = newNode;
     }
 
-    void delete_node(int value) {
-        if (!head) return; // Empty list
+    void delete_node(const string& name) {
+        if (!head) { // If the list is empty
+            cout << "List is empty. Cannot delete." << endl;
+            return;
+        }
 
         Node* temp = head;
-        while (temp && temp->data != value)
+        while (temp && temp->data.get_name() != name)
             temp = temp->next;
 
-        if (!temp) return; // Value not found
+        if (!temp) { // If Goat with the specified name is not found
+            cout << "Goat with name \"" << name << "\" not found." << endl;
+            return;
+        }
 
+        // adjusting previous nodes next ptr
         if (temp->prev) {
             temp->prev->next = temp->next;
         }
         else {
             head = temp->next; // Deleting the head
         }
-
+        // adjusting next nodes next ptr
         if (temp->next) {
             temp->next->prev = temp->prev;
         }
@@ -157,9 +172,9 @@ public:
             tail = temp->prev; // Deleting the tail
         }
 
-        delete temp;
+        delete temp; // free memory to avoid leak
     }
-
+     
     void print() {
         Node* current = head;
         if (!current) return;
