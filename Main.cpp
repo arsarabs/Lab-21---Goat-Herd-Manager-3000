@@ -174,23 +174,33 @@ public:
 
         delete temp; // free memory to avoid leak
     }
-     
+    // print() displays the Goat objects from head to tail
     void print() {
-        Node* current = head; 
+        if (!head) { // If the list is empty
+            cout << "List is empty" << endl;
+            return;
+        }
+        Node* current = head; //starting from head
         if (!current) return;
-        while (current) {
-            cout << current->data << " ";
-            current = current->next;
+        while (current) { // Traverse the list
+            cout << current->data.get_description() << " ";
+            current = current->next; //next node
         }
         cout << endl;
     }
 
+    // print_reverse() displays the Goat objects from tail to head
     void print_reverse() {
-        Node* current = tail;
+        if (!tail) { // If the list is empty
+            cout << "List is empty" << endl;
+            return;
+        }
+
+        Node* current = tail; // Start from the tail
         if (!current) return;
         while (current) {
-            cout << current->data << " ";
-            current = current->prev;
+            cout << current->data.get_description() << " ";
+            current = current->prev; //prevoius node
         }
         cout << endl;
     }
