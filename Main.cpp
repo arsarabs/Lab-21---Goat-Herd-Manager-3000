@@ -1,5 +1,5 @@
 // COMSC-210 | Lab 21 | Anthony R. Sarabia
-// IDE used: Visual Studio
+// IDE used: Visual Studio 
 
 #include <iostream>
 #include <iomanip>
@@ -7,8 +7,11 @@
 #include <string>      // For string operations
 #include <ctime>       // For time()
 using namespace std; 
- 
-const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
+
+const int MIN_LIST = 5;
+const int MAX_LIST = 20; 
+const int MIN_AGE = 1;               
+const int MAX_AGE = 20;                    
 const int NAME_COUNT = 15;           // Number of names in the names array
 const int COLOR_COUNT = 15;          // Number of colors in the colors array
 
