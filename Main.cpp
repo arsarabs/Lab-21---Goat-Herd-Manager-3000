@@ -30,7 +30,7 @@ public:
     Goat() {
         age = rand() % (MAX_AGE - MIN_AGE + 1) + MIN_AGE;
         name = names[rand() % NAME_COUNT];
-        color = colors_list[rand() % COLOR_COUNT];
+        color = colors[rand() % COLOR_COUNT];
     }
     
     // Parameterized constructor
@@ -54,7 +54,7 @@ const string Goat::names[NAME_COUNT] = {
     "Senior", "Godlike", "Old", "Mature", "Teen", "Youngster", "Elder",
     "Veteran", "Baby", "Warrior", "Legend", "Epic", "Hero", "Champion", "Rogue"
 };
-const string Goat::colors[NAME_COUNT] = {
+const string Goat::colors[COLOR_COUNT] = {
   "Yellow", "Red", "Gold", "Mauve", "White", "Blue", "Green",
     "Purple", "Black", "Silver", "Orange", "Brown", "Pink", "Cyan", "Indigo"
 };
@@ -81,7 +81,7 @@ public:
     // push_back() inserts a Goat object at the end of the list
     void push_back(const Goat& goat) {
         // Create a new node with the Goat object, current tail as previous, and no next node
-        Node* newNode = new Node(goat, nullptr, head);
+        Node* newNode = new Node(goat, tail, nullptr);
         if (!tail)  // if there's no tail, the list is empty
             head = tail = newNode; // Head and tail both point to the new node
         else {
@@ -219,11 +219,30 @@ int get_random_list_size();
 
 // Driver program
 int main() {
-  
+    srand(static_cast<unsigned int>(time(0)));
+
+    DoublyLinkedList goatList; // Create an empty list of Goats
+    int listSize = get_random_list_size();
+
+    // Insert random Goat objects into the list using push_back
+    for (int i = 0; i < listSize; ++i) {
+        Goat goat; // Create a random Goat using the default constructor
+        goatList.push_back(goat); // Add the Goat to the end of the list
+    }
+
+    // Output the Goat list in forward direction
+    cout << "Forward: " << endl;
+    goatList.print(); // Call the print method to display the list from head to tail
+
+    // Output the Goat list in reverse direction
+    cout << "\nBackward: " << endl;
+    goatList.print_reverse(); // Call the print_reverse method to display the list from tail to head
+
+    
 
     return 0;
 }
 
 int get_random_list_size() {
-
+    return rand() % (MAX_LIST - MIN_LIST + 1) + MIN_LIST;
 }
